@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace codelist
 {
     public class Common
     {
         /// <summary>
-        /// 获取Get/Post/Cookies/ServerVariables
+        /// 获取Get/Post/Cookies/ServerVariables 需要引用System.Web
         /// </summary>
         /// <param name="k"></param>
         /// <param name="var"></param>
@@ -21,16 +23,16 @@ namespace codelist
             switch (var)
             {
                 case "G":
-                    return_str = System.Web.HttpContext.Current.Request.QueryString[k] == null ? "" : System.Web.HttpContext.Current.Request.QueryString[k].ToString();
+                    return_str = HttpContext.Current.Request.QueryString[k] == null ? "" : HttpContext.Current.Request.QueryString[k].ToString();
                     break;
                 case "P":
-                    return_str = System.Web.HttpContext.Current.Request.Form[k] == null ? "" : System.Web.HttpContext.Current.Request.Form[k].ToString();
+                    return_str = HttpContext.Current.Request.Form[k] == null ? "" : HttpContext.Current.Request.Form[k].ToString();
                     break;
                 case "S":
-                    return_str = System.Web.HttpContext.Current.Request.ServerVariables[k] == null ? "" : System.Web.HttpContext.Current.Request.ServerVariables[k].ToString();
+                    return_str = HttpContext.Current.Request.ServerVariables[k] == null ? "" : HttpContext.Current.Request.ServerVariables[k].ToString();
                     break;
                 case "C":
-                    return_str = System.Web.HttpContext.Current.Request.Cookies[k] == null ? "" : System.Web.HttpContext.Current.Request.Cookies[k].ToString();
+                    return_str = HttpContext.Current.Request.Cookies[k] == null ? "" : HttpContext.Current.Request.Cookies[k].ToString();
                     break;
                 case "R":
                     return_str = System.Web.HttpContext.Current.Request[k] == null ? "" : System.Web.HttpContext.Current.Request[k].ToString();
@@ -52,7 +54,7 @@ namespace codelist
                 encoding = Encoding.UTF8;
             }
             //using (MD5CryptoServiceProvider md5Hash = new MD5CryptoServiceProvider())
-            using (System.Security.Cryptography.MD5 md5Hash = System.Security.Cryptography.MD5.Create())
+            using (MD5 md5Hash = MD5.Create())
             {
                 // Convert the input string to a byte array and compute the hash.
                 byte[] data = md5Hash.ComputeHash(encoding.GetBytes(input));
