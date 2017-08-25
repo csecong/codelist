@@ -9,7 +9,7 @@ namespace codelist
     class open_baidu_zhitou
     {
         /// <summary>
-        /// 百度直投简历解密接口C# 基于base64_decode的中文解密算法
+        /// 百度直投简历解密接口C# 基于base64_decode的中文解密算法 对简历中的res字段进行解密
         /// </summary>
         /// <param name="data_str">待解密字符串res</param>
         /// <param name="key">密钥key</param>
